@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.join-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    text-align: center;
+}
+
+.join-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.label-text {
+    font-weight: bold;
+    width: 100px;
+    text-align: center;
+}
+
+.input {
+    width: 380px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.submit-btn {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4D90FE;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #357AE8;
+}
+
+.label-radio {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.label-radio input[type="radio"] {
+    margin-right: 8px;
+}
+
+.label-radio span {
+    margin-right: 20px;
+}
+
+.back-btn {
+    background-color: #ccc;
+    font-weight: bold;
+    color: #333;
+    width: auto;
+}
+
+.back-btn:hover {
+    background-color: #bbb;
+}
