@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AddressInput from './DaumPostCode';
 import axios from 'axios';
 import './Join.css';
 
@@ -22,23 +23,109 @@ function Join() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-    
+
         if (name === "phone" && !/^\d*$/.test(value)) {
             return;
         }
-    
+
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
+    const validateForm = () => {
+        if (!formData.userId || formData.userId.trim() === '') {
+            alert('아이디를 입력해주세요.');
+            return false;
+        }
+
+        const userIdRegex = /^[a-zA-Z0-9]+$/;
+        if (!userIdRegex.test(formData.userId)) {
+            alert('아이디는 영문과 숫자만 사용 가능합니다.');
+            return false;
+        }
+
+        if (formData.userId.length > 50) {
+            alert('아이디는 50자 이내로 작성해주세요.');
+            return false;
+        }
+
+        if (!formData.password || formData.password.trim() === '') {
+            alert('비밀번호를 입력해주세요.');
+            return false;
+        }
+
+        if (!formData.confirmPassword || formData.confirmPassword.trim() === '') {
+            alert('비밀번호 확인을 입력해주세요.');
+            return false;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return false;
+        }
+
+        if (!formData.username || formData.username.trim() === '') {
+            alert('성명을 입력해주세요.');
+            return false;
+        }
+
+        if (formData.username.length > 100) {
+            alert('사용자 이름은 100자를 초과할 수 없습니다.');
+            return false;
+        }
+
+        if (!formData.birthDate || formData.birthDate.trim() === '') {
+            alert('생년월일은 필수 입력 사항입니다.');
+            return false;
+        }
+
+        if (!formData.address || formData.address.trim() === '') {
+            alert('주소를 입력해주세요.');
+            return false;
+        }
+
+        if (formData.address.length > 255) {
+            alert('주소는 255자를 초과할 수 없습니다.');
+            return false;
+        }
+
+        if (!formData.email || formData.email.trim() === '') {
+            alert('이메일을 입력해주세요.');
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('잘못된 이메일 형식입니다.');
+            return false;
+        }
+
+        if (formData.email.length > 100) {
+            alert('이메일은 100자를 초과할 수 없습니다.');
+            return false;
+        }
+
+        if (!formData.phone || formData.phone.trim() === '') {
+            alert('전화번호를 입력해주세요.');
+            return false;
+        }
+
+        const phoneRegex = /^\d{11}$/;
+        if (!phoneRegex.test(formData.phone)) {
+            alert('전화번호는 11자리 숫자만 입력해주세요.');
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("회원가입 시작")
 
-        if (formData.password !== formData.confirmPassword) {
-            alert('비밀번호가 일치하지 않습니다.');
+        if (!validateForm()) {
             return;
         }
 
@@ -114,7 +201,7 @@ function Join() {
 
 
                 <label className="label">
-                    <span className="label-text">이름</span>
+                    <span className="label-text">성명</span>
                     <input
                         type="text"
                         name="username"
@@ -138,6 +225,12 @@ function Join() {
                 </label>
 
                 <label className="label">
+                    <AddressInput
+                        onChange={(value) => setFormData((prevData) => ({ ...prevData, address: value }))}
+                    />
+                </label>
+
+                {/* <label className="label">
                     <span className="label-text">주소</span>
                     <input
                         type="text"
@@ -147,7 +240,7 @@ function Join() {
                         className="input"
                         required
                     />
-                </label>
+                </label> */}
 
                 <label className="label">
                     <span className="label-text">이메일 주소</span>
@@ -167,9 +260,9 @@ function Join() {
                         type="text"
                         name="phone"
                         value={formData.phone}
-                        onChange={(e) => handleChange(e, /^[0-9]*$/)}  // 숫자만 입력되도록 필터링
+                        onChange={(e) => handleChange(e, /^[0-9]*$/)}
                         className="input"
-                        pattern="[0-9]*"  // 숫자만 허용하는 패턴
+                        pattern="[0-9]*"
                         placeholder="01012345678"
                         required
                     />
